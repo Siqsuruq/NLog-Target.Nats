@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>NLog.Targets.Nats</Title>
+    <Company>$(Authors)</Company>
+    <Authors>Siqsuruq</Authors>
+    <Description>NLog custom target for NATS messaging</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NATS.Net" Version="2.3.1" />
+    <PackageReference Include="NLog" Version="5.3.2" />
+  </ItemGroup>
+
+</Project>

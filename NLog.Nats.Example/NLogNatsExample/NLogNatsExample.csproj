@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NATS.Net" Version="2.3.1" />
+    <PackageReference Include="NLog" Version="5.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NLog.Targets.Nats">
+      <HintPath>..\..\NLog.Targets.Nats\bin\Debug\net8.0\NLog.Targets.Nats.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
