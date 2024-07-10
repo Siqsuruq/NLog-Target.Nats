@@ -8,8 +8,31 @@
     <Title>NLog.Targets.Nats</Title>
     <Company>$(Authors)</Company>
     <Authors>Siqsuruq</Authors>
-    <Description>NLog custom target for NATS messaging</Description>
+    <Description>NLog custom target for NATS messaging server</Description>
+    <PackageTags>nlog;nats;target</PackageTags>
+    <RepositoryUrl>https://github.com/Siqsuruq/NLog-Target.Nats</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Siqsuruq/NLog-Target.Nats</PackageProjectUrl>
+    <Copyright>GNU General Public License v2.0</Copyright>
+    <PackageIcon>NLog.jpg</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Pictures\NLog.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NATS.Net" Version="2.3.1" />
