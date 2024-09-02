@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/Siqsuruq/NLog-Target.Nats</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/Siqsuruq/NLog-Target.Nats</PackageProjectUrl>
-    <Copyright>GNU General Public License v2.0</Copyright>
+    <Copyright>Apache-2.0</Copyright>
     <PackageIcon>NLog.jpg</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
