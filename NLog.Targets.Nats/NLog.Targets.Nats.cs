@@ -3,6 +3,7 @@ using NATS.Client.Core;
 using NLog;
 using NLog.Common;
 using NLog.Config;
+using NLog.Layouts;
 using System.Text;
 
 namespace NLog.Targets.Nats
@@ -13,37 +14,40 @@ namespace NLog.Targets.Nats
         private NatsConnection _natsConnection;
 
         [RequiredParameter]
-        public string NatsUrl { get; set; }
+        public Layout NatsUrl { get; set; } = new SimpleLayout(string.Empty);
 
         [RequiredParameter]
-        public string Subject { get; set; }
+        public Layout Subject { get; set; } = new SimpleLayout(string.Empty);
 
         protected override void InitializeTarget()
         {
             base.InitializeTarget();
-            InternalLogger.Info($"Initializing NATS target with URL: {NatsUrl} and Subject: {Subject}");
-            var options = new NatsOpts { Url = NatsUrl };
+
+            var natsUrl = this.NatsUrl?.Render(LogEventInfo.CreateNullEvent()) ?? string.Empty;
+            var subject = this.Subject?.Render(LogEventInfo.CreateNullEvent()) ?? string.Empty;
+
+            InternalLogger.Info($"Initializing NATS target with URL: {natsUrl} and Subject: {subject}");
+            var options = new NatsOpts { Url = natsUrl };
             _natsConnection = new NatsConnection(options);
         }
 
         protected override void Write(LogEventInfo logEvent)
         {
-            var logMessage = this.Layout.Render(logEvent);
-            InternalLogger.Info($"Publishing log message: {logMessage}");
-            SendMessageAsync(logMessage);
+            var logMessage = this.RenderLogEvent(Layout, logEvent);
+            var subject = this.RenderLogEvent(Subject, logEvent);
+            SendMessageAsync(logMessage, subject);
         }
 
-        private async Task SendMessageAsync(string message)
+        private async Task SendMessageAsync(string message, string subject)
         {
             try
             {
                 var messageData = Encoding.UTF8.GetBytes(message);
-                await _natsConnection.PublishAsync(Subject, messageData);
-                InternalLogger.Info($"Successfully published message: {message}");
+                await _natsConnection.PublishAsync(subject, messageData).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                InternalLogger.Error($"Failed to publish message: {ex.Message}");
+                InternalLogger.Error(ex, "Failed to publish message: {0}", message);
             }
         }
 
