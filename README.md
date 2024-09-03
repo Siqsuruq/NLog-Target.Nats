@@ -17,10 +17,10 @@ NLog custom target for NATS messaging server
 	</extensions>
 
 	<targets>
-		<target type="Nats" name="nats" natsUrl="nats://localhost:4222" subject="logs">
+		<target type="Nats" name="nats" NatsUrl="nats://localhost:4222" Subject="logs">
 			<layout>${longdate} ${level} ${message} ${exception}</layout>
 		</target>
-	<targets>
+	</targets>
 
 	<rules>
 		<logger name="*" minlevel="Info" writeTo="nats" />
