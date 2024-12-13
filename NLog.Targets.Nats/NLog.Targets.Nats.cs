@@ -18,7 +18,7 @@ using NLog.Layouts;
 namespace NLog.Targets.Nats
 {
     [Target("Nats")]
-    public class NatsTarget : TargetWithContext
+    public class NatsTarget : TargetWithLayout
     {
         private NatsConnection? _natsConnection;
         private NatsHeaders? _natsHeaders;
