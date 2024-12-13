@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.0.2</Version>
+    <Version>1.0.4</Version>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NATS.Net" Version="2.5.4" />
+    <PackageReference Include="NATS.Net" Version="2.5.5" />
     <PackageReference Include="NLog" Version="5.3.4" />
   </ItemGroup>
 

@@ -17,6 +17,17 @@ namespace NLogNatsExample
             Logger.Error("This is an error message");
 
             Console.WriteLine("Logs have been sent to NATS.");
+
+            var sampleObject = new
+            {
+                Id = 1,
+                Name = "Sample Object",
+                Timestamp = DateTime.UtcNow
+            };
+            Logger.Info(sampleObject);
+            
+            Console.WriteLine("SampleObject have been sent to NATS.");
+
             Console.ReadLine();
         }
     }

@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NATS.Net" Version="2.3.3" />
-    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NATS.Net" Version="2.5.5" />
+    <PackageReference Include="NLog" Version="5.3.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="NLog.Targets.Nats">
-      <HintPath>..\..\NLog.Targets.Nats\bin\Debug\net8.0\NLog.Targets.Nats.dll</HintPath>
+      <HintPath>..\..\NLog.Targets.Nats\bin\Release\net8.0\NLog.Targets.Nats.dll</HintPath>
     </Reference>
   </ItemGroup>
 
