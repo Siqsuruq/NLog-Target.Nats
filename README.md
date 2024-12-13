@@ -8,7 +8,8 @@ NLog custom target for NATS messaging server
 | `NatsUrl` | URL for the Nats Connecttion |
 | `Subject` | Subject for the Nats message |
 | `Layout`  | Payload for the Nats message |
-| `Headers` | Custom headers for the Nats message |
+| `SingleParameter` | LogEvent with single parameter, should use parameter value as Payload |
+| `Header`  | Custom headers for the Nats message (Multiple allowed) |
 
 # Example NLog.config file
 ```xml
@@ -20,25 +21,7 @@ NLog custom target for NATS messaging server
 	<targets>
 		<target type="Nats" name="nats" NatsUrl="nats://localhost:4222" Subject="logs">
 			<layout>${longdate} ${level} ${message} ${exception}</layout>
-		</target>
-	</targets>
-
-	<rules>
-		<logger name="*" minlevel="Info" writeTo="nats" />
-	</rules>
-</nlog>
-```
-
-# Example NLog.config file with custom nats header
-```xml
-<nlog>
-	<extensions>
-		<add assembly="NLog.Targets.Nats" />
-	</extensions>
-
-	<targets>
-		<target xsi:type="Nats" name="nats" NatsUrl="nats://localhost:4222" Subject="logs" headers='{"Custom_Header":"Custom Header Value"}'>
-		  <layout>${longdate} ${level} || ${level} || ${message} ${exception}</layout>
+			<header name="My_Custom_Header" layout="Custom Header Value" />	<!-- Multiple allowed -->
 		</target>
 	</targets>
 
