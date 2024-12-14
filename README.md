@@ -14,19 +14,19 @@ NLog custom target for NATS messaging server
 # Example NLog.config file
 ```xml
 <nlog>
-	<extensions>
-		<add assembly="NLog.Targets.Nats" />
-	</extensions>
+  <extensions>
+    <add assembly="NLog.Targets.Nats" />
+  </extensions>
 
-	<targets>
-		<target type="Nats" name="nats" NatsUrl="nats://localhost:4222" Subject="logs">
-			<layout>${longdate} ${level} ${message} ${exception}</layout>
-			<header name="My_Custom_Header" layout="Custom Header Value" />	<!-- Multiple allowed -->
-		</target>
-	</targets>
+  <targets>
+    <target type="Nats" name="nats" NatsUrl="nats://localhost:4222" Subject="logs">
+      <layout>${longdate} ${level} ${message} ${exception}</layout>
+      <header name="My_Custom_Header" layout="Custom Header Value" />  <!-- Multiple allowed -->
+    </target>
+  </targets>
 
-	<rules>
-		<logger name="*" minlevel="Info" writeTo="nats" />
-	</rules>
+  <rules>
+    <logger name="*" minlevel="Info" writeTo="nats" />
+  </rules>
 </nlog>
 ```
