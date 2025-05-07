@@ -88,13 +88,14 @@ namespace NLog.Targets.Nats
             var subject = this.RenderLogEvent(Subject, logEvent);
             var logMessage = this.RenderLogEvent(Layout, logEvent);
 
-            // Check if the logEvent has an object to send
-            if (SingleParameter && logEvent.Parameters?.Length == 1 && logEvent.Message?.StartsWith('{') == true && logEvent.Message?.EndsWith('}') == true)
+            if (SingleParameter && logEvent.Parameters?.Length == 1 && logEvent.Parameters[0] is not string)
             {
+                // Send the structured object
                 _lastWrite = SendMessageAsync(logEvent.Parameters[0], subject);
             }
             else
             {
+                // Send raw rendered message
                 _lastWrite = SendMessageAsync(logMessage, subject);
             }
         }
