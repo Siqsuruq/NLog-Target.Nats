@@ -46,8 +46,9 @@ namespace NLog.Targets.Nats
             try
             {
                 var options = new NatsOpts { Url = natsUrl };
-                _natsConnection = new NatsConnection(options);
-                ConnectAsyncToNats();
+                var natsConnection = new NatsConnection(options);
+                _natsConnection = natsConnection;
+                NatsConnectionConnectAsync(natsConnection);
                 InternalLogger.Info("NATS connection successfully initialized.");
             }
             catch (Exception ex)
@@ -71,16 +72,37 @@ namespace NLog.Targets.Nats
             _natsHeaders = headers.Count > 0 ? headers : null;
         }
 
-        private async Task ConnectAsyncToNats()
+        private static async Task NatsConnectionConnectAsync(NatsConnection natsConnection)
         {
             try
             {
-                await (_natsConnection?.ConnectAsync() ?? ValueTask.CompletedTask).ConfigureAwait(false);
+                natsConnection.ConnectionDisconnected += NatsConnection_ConnectionDisconnected;
+                natsConnection.ConnectionOpened += NatsConnection_ConnectionOpened;
+                natsConnection.ReconnectFailed += NatsConnection_ReconnectFailed;
+                await natsConnection.ConnectAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 InternalLogger.Error(ex, "Failed to connect to NATS.");
             }
+        }
+
+        private static ValueTask NatsConnection_ConnectionOpened(object? sender, NatsEventArgs args)
+        {
+            InternalLogger.Info("NATS connection opened: {0}", args?.Message);
+            return ValueTask.CompletedTask;
+        }
+
+        private static ValueTask NatsConnection_ConnectionDisconnected(object? sender, NatsEventArgs args)
+        {
+            InternalLogger.Error("NATS connection disconnected: {0}", args?.Message);
+            return ValueTask.CompletedTask;
+        }
+
+        private static ValueTask NatsConnection_ReconnectFailed(object? sender, NatsEventArgs args)
+        {
+            InternalLogger.Error("NATS connection reconnect failed: {0}", args?.Message);
+            return ValueTask.CompletedTask;
         }
 
         protected override void Write(LogEventInfo logEvent)
